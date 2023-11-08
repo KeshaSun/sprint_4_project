@@ -1,19 +1,16 @@
-import jdk.jfr.Label;
 import org.hamcrest.MatcherAssert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 
 @RunWith(Parameterized.class)
-public class MakeOrderTestFirefox {
+public class MakeOrderTest {
     private final String name;
     private final String surname;
     private final String address;
@@ -22,8 +19,8 @@ public class MakeOrderTestFirefox {
     private final String textFromHeader;
     private WebDriver driver;
 
-    public MakeOrderTestFirefox(String name, String surname, String address, String telephone,
-                                String data, String textFromHeader ) {
+    public MakeOrderTest(String name, String surname, String address, String telephone,
+                         String data, String textFromHeader ) {
         this.name = name;
         this.surname = surname;
         this.address = address;
@@ -40,12 +37,14 @@ public class MakeOrderTestFirefox {
                     { "Петр", "Петров", "ул. Тленина д.5","+79999999999","01.11.2023","Заказ оформлен"},
             };
         }
-  @Before
+   @Before
    public void setUp() {
-      driver = new FirefoxDriver();
-  }
+       driver = new ChromeDriver();
+
+   }
     @Test
-    public void MakeOrderFirefoxTopOrderButton() {
+    public void makeOrderChromeOrderButton() {
+
         //Создать Page Object для Main page для работы
         MainPage objMainPage = new MainPage(driver);
         //Создать Page Object для OrderModalOne для работы
@@ -61,7 +60,7 @@ public class MakeOrderTestFirefox {
         objMainPage.openPage();
         //Нажать на кнопку кук
         objMainPage.clicOnCookieButton();
-        //Нажать на кнопку "Заказать" в хедере
+        //Нажать на кнопку "Заказать"
         objMainPage.clicOnMakeOrderTop();
         //Дождаться пока загрузится страница
         objOrderModalOne.waitForLoadHeader();
@@ -103,8 +102,10 @@ public class MakeOrderTestFirefox {
         MatcherAssert.assertThat(headerText, containsString(textFromHeader));
     }
 
+    @Test
+
    @After
-   public void teardown() {
+   public void tearDown() {
         // Закрой браузер
        driver.quit();
    }

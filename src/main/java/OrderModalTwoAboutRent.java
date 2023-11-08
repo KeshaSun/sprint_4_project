@@ -16,7 +16,7 @@ public class OrderModalTwoAboutRent {
     //Поле "Срок Аренды"
     private final By rentalPeriod = By.className("Dropdown-placeholder");
     //Кнопка "Заказать"
-    private final By makeOrderButton = By.xpath(".//div[2]/div[3]/button[2]");
+    private final By makeOrderButton = By.xpath(".//div[contains(@class,'Order')]/button[.='Заказать']");
 
     //Заполнить поле "Куда привезти самокат"
     public void setWhenBringScooter(String data) {
